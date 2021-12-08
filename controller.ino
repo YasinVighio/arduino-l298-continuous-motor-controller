@@ -38,6 +38,7 @@ int SPD_CONTROL_PIN = 9;  //SET SPEED CONTROL (PWM) PIN
 
 void setup()
 {
+  Serial.begin(9600);
   pinMode(MOTOR_FWD_PIN, OUTPUT);    
   pinMode(MOTOR_BWD_PIN, OUTPUT);
    pinMode(SPD_CONTROL_PIN, OUTPUT);
@@ -52,15 +53,19 @@ analogWrite(SPD_CONTROL_PIN, 255);   //255 = 100% POWER CYCLE or max pwm
 //For PWM values
 
 
-  while(1)
-  {
       digitalWrite(MOTOR_BWD_PIN, LOW);
-      // delay(10000);                      //THIS LINE CAN BE UNCOMMENTED FOR STOPPING MOTOR FOR 10 SECONDS BEFORE STARTING IN FORWARD DIRECTION
+      Serial.println("Start delay 10 secs");
+      delay(10000);                      //THIS LINE CAN BE UNCOMMENTED FOR STOPPING MOTOR FOR 10 SECONDS BEFORE STARTING IN FORWARD DIRECTION
+
+      Serial.println("Starting FWD");
       digitalWrite(MOTOR_FWD_PIN, HIGH);  //START MOTOR IN FORWARD (extend)
       delay(10000);
+      Serial.println("Stopping FWD");
       digitalWrite(MOTOR_FWD_PIN, LOW);   //STOP AFTER 10 SECS
       delay(10000);
+
+      Serial.println("Starting BWD");
       digitalWrite(MOTOR_BWD_PIN, HIGH);  //STARTS IN REVERSE AFTER 10 SECONDS (retract) --- WILL RUN IN REVERSE DIRECTION FOR 10 SECONDS 
       delay(10000); //AFTER 10 SECOND, MOTOR STARTS IN FORWARD IMMEDIATELY
-}
+      Serial.println("Stopping BWD");
 }
